@@ -13,6 +13,7 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
@@ -35,7 +36,7 @@ public class HttpExemplo {
     	
     	Gson g = new Gson();
     	
-    	Combustivel c = new Combustivel();
+    	List<Combustivel> c = new ArrayList<Combustivel>();
     	
     	Type combustivelType = new TypeToken<List<Combustivel>>() {}.getType();
     	

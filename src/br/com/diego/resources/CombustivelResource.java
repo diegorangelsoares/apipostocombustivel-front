@@ -1,6 +1,7 @@
 package br.com.diego.resources;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
@@ -18,7 +19,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import br.com.diego.model.Combustivel;
+import br.com.diego.repository.HttpExemplo;
 
 @ManagedBean(name = "combustivelResource")
 @RequestScoped
@@ -26,11 +31,10 @@ public class CombustivelResource {
 	
 	private static final long serialVersionUID = 1L;
 	
-
-	
 	private String media = Muda();
 	
 	private String mediaPorBandeira = RetornaMediaPorBandeira();
+	
 	
 	public String getMedia() {
 		return media;
@@ -144,6 +148,32 @@ public class CombustivelResource {
         String TotalString = df.format (totalPrecos); // deve retornar a string "1.234,56"     
         return TotalString;
     }
+	
+	public List<Combustivel> requisicaoAPIREst() {
+		HttpExemplo http = new HttpExemplo();
+    	String chamadaWS;
+    	
+    	chamadaWS = "http://localhost:8080/api/combustiveis/AgrupadoPorDataDaColeta" ;
+    	
+    	String json = null;
+		try {
+			json = http.sendGet(chamadaWS, "GET");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	Gson g = new Gson();
+    	
+    	List<Combustivel> c = new ArrayList<Combustivel>();
+    	
+    	Type combustivelType = new TypeToken<List<Combustivel>>() {}.getType();
+    	
+    	c = g.fromJson(json, combustivelType);
+    	
+    	System.out.println(c);
+    	return c;
+	}
 	
 	/**
 	;
