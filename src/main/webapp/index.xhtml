@@ -18,19 +18,19 @@
 	   <br/>
 	   <p:outputLabel value="Média de preço por município"/>
 	   <p:panelGrid columns="3">
-	   		<p:outputLabel value="Município" />
-	    	<p:outputLabel value="Média de preço" />
+	   		<p:outputLabel value="Brasília" />
+	    	<h:outputText value="#{combustivelResource.media}" />
 	   </p:panelGrid>
 	   <br/>
 	   <br/>
 	   <!--  Historico -->
 	   <p:outputLabel value="Resgistros de combustíveis importados"/>
 	   <br/>
-	   <!--  <h:commandButton value="Histótico" actionListener="#{CombustivelResource.listUsuarios()}"/>-->
+	   <!--  <h:commandButton value="Histótico" actionListener="#{CombustivelResource.listCombustiveis()}"/>-->
 	   <div/>
         <p:dataTable var="Combustivel" value="#{CombustivelResource.combustiveis}">
               <p:column headerText="Id">
-                   <h:outputText value="#{CombustivelResource.combustiveis.id}" />
+                   <h:outputText value="#{Combustiveis.id}" />
               </p:column>
  
               <p:column headerText="Regiao">

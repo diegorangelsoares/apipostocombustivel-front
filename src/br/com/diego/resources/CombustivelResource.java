@@ -1,30 +1,71 @@
 package br.com.diego.resources;
 
+import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.context.RequestContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.diego.model.Combustivel;
 
-@ManagedBean
+@ManagedBean(name = "combustivelResource")
 @RequestScoped
 public class CombustivelResource {
 	
-	private List <Combustivel> combustiveis = listUsuarios();
-	private Combustivel combustivel = new Combustivel();
+	private static final long serialVersionUID = 1L;
 	
-	public CombustivelResource() {
-		this.combustiveis = new ArrayList<Combustivel>();
+
+	
+	private String media = Muda();
+	
+	
+	public String getMedia() {
+		return media;
+	}
+
+	public void setMedia(String media) {
+		this.media = media;
 	}
 	
-	public List<Combustivel> listUsuarios() {
+	public String Muda() {
+		//return getMediaCompraVenda("Joao Pessoa");
+		return "4,23";
+	}
+	
+	public String getMediaCompraVenda(String municipio){
+		List <Combustivel> combustiveis = listCombustiveis();
+		List <Combustivel> combustiveisMunicipio = new ArrayList<>();
+		for (int i = 0; i < combustiveis.size(); i++) {
+			if (combustiveis.get(i).getMunicipio().equals(municipio.toUpperCase())) {
+				combustiveisMunicipio.add(combustiveis.get(i));
+			}
+		}
+		//fazer código para calcular media
+		String med = retornMedia(combustiveisMunicipio);
+		String medCompra = retornMediaCompra(combustiveisMunicipio);
+		String retorno = "Média de Compra: "+medCompra + "  Média de Venda: "+med;
+		return retorno;
+	}
+	
+	private List <Combustivel> combustiveis = null;
+	public List<Combustivel> listCombustiveis() {
 		//fazer o código para buscar combustiveis
-		Combustivel c1 = new Combustivel(0, "CO", "PB", "JOÃO PESSOA", "PETROBRAS", "PROPRIA 1", "GASOLINA COMUM", "10/07/2019", "3,50", "4,20", "LT", "BR", "12/07/2019");
-		Combustivel c2 = new Combustivel(1, "CO", "PB", "JOÃO PESSOA", "ESSO", "PROPRIA 2", "GASOLINA COMUM", "10/07/2019", "3,50", "4,25", "LT", "BR", "12/07/2019");
-		Combustivel c3 = new Combustivel(2, "CO", "PB", "JOÃO PESSOA", "TEXACO", "PROPRIA 3", "GASOLINA COMUM", "10/07/2019", "3,50", "4,30", "LT", "BR", "12/07/2019");
-		Combustivel c4 = new Combustivel(3, "CO", "PB", "JOÃO PESSOA", "TEXACO", "PROPRIA 4", "GASOLINA COMUM", "10/07/2019", "3,50", "4,50", "LT", "BR", "12/07/2019");
+		Combustivel c1 = new Combustivel(0, "CO", "PB", "JOAO PESSOA", "PETROBRAS", "PROPRIA 1", "GASOLINA COMUM", "10/07/2019", "3,50", "4,20", "LT", "BR", "12/07/2019");
+		Combustivel c2 = new Combustivel(1, "CO", "PB", "JOAO PESSOA", "ESSO", "PROPRIA 2", "GASOLINA COMUM", "10/07/2019", "3,50", "4,25", "LT", "BR", "12/07/2019");
+		Combustivel c3 = new Combustivel(2, "CO", "PB", "JOAO PESSOA", "TEXACO", "PROPRIA 3", "GASOLINA COMUM", "10/07/2019", "3,50", "4,30", "LT", "BR", "12/07/2019");
+		Combustivel c4 = new Combustivel(3, "CO", "PB", "JOAO PESSOA", "TEXACO", "PROPRIA 4", "GASOLINA COMUM", "10/07/2019", "3,50", "4,50", "LT", "BR", "12/07/2019");
 		combustiveis.add(c1);
 		combustiveis.add(c2);
 		combustiveis.add(c3);
@@ -32,6 +73,94 @@ public class CombustivelResource {
 		
 		return combustiveis;
 	}
+	
+	public String retornMedia (List <Combustivel> combustiveis){
+		DecimalFormat df = new DecimalFormat ("#0.000", new DecimalFormatSymbols (new Locale ("pt", "BR")));  
+		int quantReg = 0;
+		double totalPrecos = 0;
+		for (int i = 0; i < combustiveis.size(); i++) {
+			double preco1 = 0;
+			String valorVenda = combustiveis.get(i).getValorDaVenda();
+			//Tratar se tem preço de venda preenchido
+			if (!valorVenda.equals("")){
+		        try {
+		        	preco1 = df.parse (valorVenda).doubleValue(); // isto deve dar o número "1234.56"	 
+		        	//preco1 = Double.parseDouble(valorVenda);    
+		            totalPrecos = totalPrecos + preco1;
+		            quantReg++;
+		        } catch (ParseException ex) {
+		            ex.printStackTrace();
+		        }
+				//System.out.println("Municipio: "+combustiveis.get(i).getMunicipio()+"\nPreço: "+combustiveis.get(i).getValorDaVenda()+"\n");
+			}
+		}
+		totalPrecos = totalPrecos / quantReg;
+        String TotalString = df.format (totalPrecos); // deve retornar a string "1.234,56"     
+        return TotalString;
+    }
+	
+	public String retornMediaCompra (List <Combustivel> combustiveis){
+		DecimalFormat df = new DecimalFormat ("#0.000", new DecimalFormatSymbols (new Locale ("pt", "BR")));  
+		int quantReg = 0;
+		double totalPrecos = 0;
+		for (int i = 0; i < combustiveis.size(); i++) {
+			double preco1 = 0;
+			String valorCompra = combustiveis.get(i).getValoDaCompra();
+			//Tratar se tem preço de venda preenchido
+			if (!valorCompra.equals("")){
+		        try {
+		        	preco1 = df.parse (valorCompra).doubleValue(); // isto deve dar o número "1234.56"	 
+		        	//preco1 = Double.parseDouble(valorVenda);    
+		            totalPrecos = totalPrecos + preco1;
+		            quantReg++;
+		        } catch (ParseException ex) {
+		            ex.printStackTrace();
+		        }
+			}
+		}
+		totalPrecos = totalPrecos / quantReg;
+        String TotalString = df.format (totalPrecos); // deve retornar a string "1.234,56"     
+        return TotalString;
+    }
+	
+	/**
+	;
+	
+	public CombustivelResource() {
+		//combustiveis = listCombustiveis();
+	}
+
+	
+	
+	public String getMediaCompraVenda(String municipio){
+		List <Combustivel> combustiveis = listCombustiveis();
+		List <Combustivel> combustiveisMunicipio = new ArrayList<>();
+		for (int i = 0; i < combustiveis.size(); i++) {
+			if (combustiveis.get(i).getMunicipio().equals(municipio.toUpperCase())) {
+				combustiveisMunicipio.add(combustiveis.get(i));
+			}
+		}
+		//fazer código para calcular media
+		String med = retornMedia(combustiveisMunicipio);
+		String medCompra = retornMediaCompra(combustiveisMunicipio);
+		String retorno = "Média de Compra: "+medCompra + "  Média de Venda: "+med;
+		return retorno;
+	}
+	
+	
+
+	//private List <Combustivel> combustiveis = lisCombustiveis();
+	
+	*/
+	
+	/**
+	private Combustivel combustivel = new Combustivel();
+	
+	public CombustivelResource() {
+		this.combustiveis = new ArrayList<Combustivel>();
+	}
+	
+	
 
 	public List<Combustivel> getCombustiveis() {
 		return combustiveis;
@@ -49,6 +178,6 @@ public class CombustivelResource {
 		this.combustivel = combustivel;
 	}
 	
-	
+	*/
 
 }
