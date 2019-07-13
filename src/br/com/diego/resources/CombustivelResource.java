@@ -30,6 +30,7 @@ public class CombustivelResource {
 	
 	private String media = Muda();
 	
+	private String mediaPorBandeira = RetornaMediaPorBandeira();
 	
 	public String getMedia() {
 		return media;
@@ -44,6 +45,27 @@ public class CombustivelResource {
 		return "4,23";
 	}
 	
+	public String RetornaMediaPorBandeira() {
+		//return getMediaCompraVenda("Joao Pessoa");
+		return "4,35";
+	}
+	
+	public String getMediaPorBandeira() {
+		return mediaPorBandeira;
+	}
+
+	public void setMediaPorBandeira(String mediaPorBandeira) {
+		this.mediaPorBandeira = mediaPorBandeira;
+	}
+
+	public List<Combustivel> getCombustiveis() {
+		return combustiveis;
+	}
+
+	public void setCombustiveis(List<Combustivel> combustiveis) {
+		this.combustiveis = combustiveis;
+	}
+
 	public String getMediaCompraVenda(String municipio){
 		List <Combustivel> combustiveis = listCombustiveis();
 		List <Combustivel> combustiveisMunicipio = new ArrayList<>();

@@ -4,6 +4,9 @@
    xmlns:p="http://primefaces.org/ui">
  
 <h:head>
+ <!--
+     <link rel="StyleSheet" type="text/css" href="css/main.css" media="screen" >  
+	 -->
  
 </h:head>
  
@@ -20,6 +23,13 @@
 	   <p:panelGrid columns="3">
 	   		<p:outputLabel value="Brasília" />
 	    	<h:outputText value="#{combustivelResource.media}" />
+	   </p:panelGrid>
+	   <br/>
+	   <br/>
+	   <p:outputLabel value="Média de preço por Bandeira"/>
+	   <p:panelGrid columns="3">
+	   		<p:outputLabel value="BR" />
+	    	<h:outputText value="#{combustivelResource.mediaPorBandeira}" />
 	   </p:panelGrid>
 	   <br/>
 	   <br/>
