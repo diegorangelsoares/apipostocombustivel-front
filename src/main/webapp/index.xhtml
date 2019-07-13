@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui">
+ 
+<h:head>
+ 
+</h:head>
+ 
+<h:body>
+<!--  JSF -->
+   <h:form>
+   
+	   <div/>
+	   <p:outputLabel value="API JSF Consome API REST posto de combustível" style="font-size: 25px"/>
+	   
+	   <br/>
+	   <br/>
+	   <p:outputLabel value="Média de preço por município"/>
+	   <p:panelGrid columns="3">
+	   		<p:outputLabel value="Município" />
+	    	<p:outputLabel value="Média de preço" />
+	   </p:panelGrid>
+	   <br/>
+	   <br/>
+	   <!--  Historico -->
+	   <p:outputLabel value="Resgistros de combustíveis importados"/>
+	   <br/>
+	   <!--  <h:commandButton value="Histótico" actionListener="#{CombustivelResource.listUsuarios()}"/>-->
+	   <div/>
+        <p:dataTable var="Combustivel" value="#{CombustivelResource.combustiveis}">
+              <p:column headerText="Id">
+                   <h:outputText value="#{CombustivelResource.combustiveis.id}" />
+              </p:column>
+ 
+              <p:column headerText="Regiao">
+                   <h:outputText value="#{Combustivel.regiao}" />
+              </p:column>
+ 
+              <p:column headerText="Estado">
+                   <h:outputText value="#{Combustivel.estado}" />
+              </p:column>
+ 
+              <p:column headerText="Municipio">
+                   <h:outputText value="#{Combustivel.municipio}" />
+              </p:column>               
+              <p:column headerText="Revenda">
+                   <h:outputText value="#{Combustivel.revenda}" />
+              </p:column>       
+              <p:column headerText="Instalacao">
+                   <h:outputText value="#{Combustivel.instalacao}" />
+              </p:column>     
+		      <p:column headerText="Produto">
+                   <h:outputText value="#{Combustivel.produto}" />
+              </p:column>       
+              <p:column headerText="Data da Coleta">
+                   <h:outputText value="#{Combustivel.dataDaColeta}" />
+              </p:column>    
+			  <p:column headerText="valo de Compra">
+                   <h:outputText value="#{Combustivel.valoDaCompra}" />
+              </p:column>       
+              <p:column headerText="Valor de Venda">
+                   <h:outputText value="#{Combustivel.ValorDaVenda}" />
+              </p:column>    
+              <p:column headerText="UND">
+                   <h:outputText value="#{Combustivel.unidadeDeMedida}" />
+              </p:column>   
+              <p:column headerText="Bandeira">
+                   <h:outputText value="#{Combustivel.bandeira}" />
+              </p:column>   
+              <p:column headerText="Data Importação">
+                   <h:outputText value="#{Combustivel.dataImportacao}" />
+              </p:column>   
+
+
+			  
+        </p:dataTable>
+ 
+ 
+   </h:form>
+</h:body>
+</html>
