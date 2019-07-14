@@ -6,6 +6,8 @@
 <h:head>
  <!--
      <link rel="StyleSheet" type="text/css" href="css/main.css" media="screen" >  
+     
+     <link rel="stylesheet" type="text/css" href="css/estilo.css" />
 -->
 </h:head>
 <h:body>
@@ -30,7 +32,6 @@
 	   <br/>
 	   <br/>
 	   <!--  Historico -->
-	   
 	   <p:outputLabel value="Registros por sigla da região"/>
 	   <p:panelGrid columns="1">
 	   		<p:outputLabel value="BR" />
@@ -81,7 +82,7 @@
         </p:dataTable>
         <br/>
 	    <br/>
-        <!--  Historico -->
+        <!--  Agrupados por Distribuidoras -->
 	   
 	   <p:outputLabel value="Agrupados por Distribuidoras"/>
 	   <p:panelGrid columns="1">
@@ -134,7 +135,7 @@
         </p:dataTable>
         <br/>
 	    <br/>
-        <!--  Historico -->
+        <!--  Agrupados por data da coleta -->
 	   
 	   <p:outputLabel value="Agrupados por data da coleta"/>
 	   <p:panelGrid columns="1">
@@ -188,7 +189,7 @@
  		<br/>
 	    <br/>
  
- 		<!--  Historico -->
+ 		<!--  Registros de combustíveis importados -->
 	   <p:outputLabel value="Registros de combustíveis importados"/>
 	   <br/>
 	   <!--  <h:commandButton value="Histótico" actionListener="#{CombustivelResource.listCombustiveis()}"/>-->
@@ -203,7 +204,6 @@
               <p:column headerText="Estado">
                    <h:outputText value="#{Combustivel.estado}" />
               </p:column>
- 
               <p:column headerText="Municipio">
                    <h:outputText value="#{Combustivel.municipio}" />
               </p:column>               

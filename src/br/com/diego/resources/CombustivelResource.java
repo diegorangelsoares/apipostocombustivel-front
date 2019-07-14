@@ -45,12 +45,12 @@ public class CombustivelResource {
 	}
 	
 	public String Muda() {
-		//return getMediaCompraVenda("Joao Pessoa");
+		//return getMediaCompraVenda("JOÃO PESSOA");
 		return "4,23";
 	}
 	
 	public String RetornaMediaPorBandeira() {
-		//return getMediaCompraVenda("Joao Pessoa");
+		//return getMediaCompraVenda("JOÃO PESSOA");
 		return "4,35";
 	}
 	
@@ -112,7 +112,7 @@ public class CombustivelResource {
     	return c;
 	}
 	
-	private List <Combustivel> combustiveis = null;
+	public List <Combustivel> combustiveis = null;
 	public List<Combustivel> listCombustiveis() {
 		//fazer o código para buscar combustiveis
 		Combustivel c1 = new Combustivel(0, "CO", "PB", "JOAO PESSOA", "PETROBRAS", "PROPRIA 1", "GASOLINA COMUM", "10/07/2019", "3,50", "4,20", "LT", "BR", "12/07/2019");
@@ -126,6 +126,8 @@ public class CombustivelResource {
 		
 		return combustiveis;
 	}
+	
+	
 	
 	public String retornMedia (List <Combustivel> combustiveis){
 		DecimalFormat df = new DecimalFormat ("#0.000", new DecimalFormatSymbols (new Locale ("pt", "BR")));  

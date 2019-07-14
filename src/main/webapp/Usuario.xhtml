@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui">
+ 
+<h:head>
+ 
+</h:head>
+ 
+<h:body>
+   <h:form>
+   	   <p:outputLabel value="Cadastro de Usuários" style="font-size: 25px"/> 
+	   <br/>
+	   <br/>
+        <p:dataTable var="usuario" value="#{usuarioResource.usuario}">
+              <p:column headerText="Id">
+                   <h:outputText value="#{usuario.id}" />
+              </p:column>
+              <p:column headerText="Nome">
+                   <h:outputText value="#{usuario.nome}" />
+              </p:column>
+              <p:column headerText="Email">
+                   <h:outputText value="#{usuario.email}" />
+              </p:column>
+              <p:column headerText="Perfil">
+                   <h:outputText value="#{usuario.perfil}" />
+              </p:column>             
+        </p:dataTable>
+ 
+   </h:form>
+</h:body>
+</html>
