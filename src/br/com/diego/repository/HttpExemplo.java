@@ -28,34 +28,26 @@ public class HttpExemplo {
     public static void main(String[] args) throws Exception {
 
     	HttpExemplo http = new HttpExemplo();
-    	String chamadaWS;
-    	
-    	chamadaWS = "http://localhost:8080/api/combustiveis/AgrupadoPorDataDaColeta" ;
-    	
-    	String json = http.sendGet(chamadaWS, "GET");
-    	
-    	Gson g = new Gson();
-    	
-    	List<Combustivel> c = new ArrayList<Combustivel>();
-    	
-    	Type combustivelType = new TypeToken<List<Combustivel>>() {}.getType();
-    	
+    	String chamadaWS;    	
+    	chamadaWS = "http://localhost:8080/api/combustiveis/AgrupadoPorDataDaColeta" ;   	
+    	String json = http.sendGet(chamadaWS, "GET");  	
+    	Gson g = new Gson(); 	
+    	List<Combustivel> c = new ArrayList<Combustivel>(); 	
+    	Type combustivelType = new TypeToken<List<Combustivel>>() {}.getType();	
     	c = g.fromJson(json, combustivelType);
-    	
+
     	System.out.println(c);
         
     }
 
-    // HTTP GET request
+    // HTTP GET
     public String sendGet(String url, String method) throws Exception {
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        // optional default is GET
         con.setRequestMethod(method);
 
-        //add request header
         con.setRequestProperty("User-Agent", USER_AGENT);
 
         int responseCode = con.getResponseCode();
@@ -76,19 +68,18 @@ public class HttpExemplo {
 
     }
 
-    // HTTP POST request
+    // HTTP POST
     public void sendPost(String url, String urlParameters, String method) throws Exception {
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        //add reuqest header
+        //add
         con.setRequestMethod(method);
         con.setRequestProperty("Content-Type", "application/json");
         con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-		//String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
-        // Send post request
+        // Send post
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
         wr.writeBytes(urlParameters);
@@ -110,7 +101,7 @@ public class HttpExemplo {
         }
         in.close();
 
-        //print result
+        //print
         System.out.println(response.toString());
 
     }

@@ -85,6 +85,33 @@ public class CombustivelResource {
 		return retorno;
 	}
 	
+	private List <Combustivel> historicoCombustiveis = requisicaoAPIREstListAll();
+	public List<Combustivel> requisicaoAPIREstListAll() {
+		HttpExemplo http = new HttpExemplo();
+    	String chamadaWS;
+    	
+    	chamadaWS = "http://localhost:8080/api/combustiveis" ;
+    	
+    	String json = null;
+		try {
+			json = http.sendGet(chamadaWS, "GET");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	Gson g = new Gson();
+    	
+    	List<Combustivel> c = new ArrayList<Combustivel>();
+    	
+    	Type combustivelType = new TypeToken<List<Combustivel>>() {}.getType();
+    	
+    	c = g.fromJson(json, combustivelType);
+    	
+    	//System.out.println(c);
+    	return c;
+	}
+	
 	private List <Combustivel> combustiveis = null;
 	public List<Combustivel> listCombustiveis() {
 		//fazer o código para buscar combustiveis
@@ -149,7 +176,8 @@ public class CombustivelResource {
         return TotalString;
     }
 	
-	public List<Combustivel> requisicaoAPIREst() {
+	private List <Combustivel> combustiveisPorDataDeColeta = requisicaoAPIREstPorDataDeColeta();
+	public List<Combustivel> requisicaoAPIREstPorDataDeColeta() {
 		HttpExemplo http = new HttpExemplo();
     	String chamadaWS;
     	
@@ -171,65 +199,64 @@ public class CombustivelResource {
     	
     	c = g.fromJson(json, combustivelType);
     	
-    	System.out.println(c);
+    	//System.out.println(c);
     	return c;
 	}
 	
-	/**
-	;
-	
-	public CombustivelResource() {
-		//combustiveis = listCombustiveis();
-	}
-
-	
-	
-	public String getMediaCompraVenda(String municipio){
-		List <Combustivel> combustiveis = listCombustiveis();
-		List <Combustivel> combustiveisMunicipio = new ArrayList<>();
-		for (int i = 0; i < combustiveis.size(); i++) {
-			if (combustiveis.get(i).getMunicipio().equals(municipio.toUpperCase())) {
-				combustiveisMunicipio.add(combustiveis.get(i));
-			}
+	private List <Combustivel> combustiveisPorSigla = requisicaoAPIREstPorSigla("BR");
+	public List<Combustivel> requisicaoAPIREstPorSigla(String sigla) {
+		HttpExemplo http = new HttpExemplo();
+    	String chamadaWS;
+    	
+    	chamadaWS = "http://localhost:8080/api/combustiveis/importadoPorRegiao/"+sigla ;
+    	
+    	String json = null;
+		try {
+			json = http.sendGet(chamadaWS, "GET");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		//fazer código para calcular media
-		String med = retornMedia(combustiveisMunicipio);
-		String medCompra = retornMediaCompra(combustiveisMunicipio);
-		String retorno = "Média de Compra: "+medCompra + "  Média de Venda: "+med;
-		return retorno;
+    	
+    	Gson g = new Gson();
+    	
+    	List<Combustivel> c = new ArrayList<Combustivel>();
+    	
+    	Type combustivelType = new TypeToken<List<Combustivel>>() {}.getType();
+    	
+    	c = g.fromJson(json, combustivelType);
+    	
+    	//System.out.println(c);
+    	return c;
+	}
+	
+	private List <Combustivel> combustiveisPorDistribuidora = requisicaoAPIREstPorDistribuidora();
+	public List<Combustivel> requisicaoAPIREstPorDistribuidora() {
+		HttpExemplo http = new HttpExemplo();
+    	String chamadaWS;
+    	
+    	chamadaWS = "http://localhost:8080/api/combustiveis/AgrupadoPorDistribuidora" ;
+    	
+    	String json = null;
+		try {
+			json = http.sendGet(chamadaWS, "GET");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	Gson g = new Gson();
+    	
+    	List<Combustivel> c = new ArrayList<Combustivel>();
+    	
+    	Type combustivelType = new TypeToken<List<Combustivel>>() {}.getType();
+    	
+    	c = g.fromJson(json, combustivelType);
+    	
+    	//System.out.println(c);
+    	return c;
 	}
 	
 	
-
-	//private List <Combustivel> combustiveis = lisCombustiveis();
-	
-	*/
-	
-	/**
-	private Combustivel combustivel = new Combustivel();
-	
-	public CombustivelResource() {
-		this.combustiveis = new ArrayList<Combustivel>();
-	}
-	
-	
-
-	public List<Combustivel> getCombustiveis() {
-		return combustiveis;
-	}
-
-	public void setCombustiveis(List<Combustivel> combustiveis) {
-		this.combustiveis = combustiveis;
-	}
-
-	public Combustivel getCombustivel() {
-		return combustivel;
-	}
-
-	public void setCombustivel(Combustivel combustivel) {
-		this.combustivel = combustivel;
-	}
-	
-	*/
 
 }

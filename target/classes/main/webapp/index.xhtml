@@ -6,17 +6,13 @@
 <h:head>
  <!--
      <link rel="StyleSheet" type="text/css" href="css/main.css" media="screen" >  
-	 -->
- 
+-->
 </h:head>
- 
 <h:body>
 <!--  JSF -->
    <h:form>
-   
 	   <div/>
-	   <p:outputLabel value="API JSF Consome API REST posto de combustível" style="font-size: 25px"/>
-	   
+	   <p:outputLabel value="API JSF Consome API REST posto de combustível" style="font-size: 25px"/> 
 	   <br/>
 	   <br/>
 	   <p:outputLabel value="Média de preço por município"/>
@@ -42,7 +38,7 @@
 	   <br/>
 	   <!--  <h:commandButton value="Histótico" actionListener="#{CombustivelResource.listCombustiveis()}"/>-->
 	   <div/>
-        <p:dataTable var="Combustivel" value="#{CombustivelResource.combustiveis}">
+        <p:dataTable var="Combustivel" value="#{CombustivelResource.combustiveisPorSigla}">
               <p:column headerText="Id">
                    <h:outputText value="#{Combustiveis.id}" />
               </p:column>
@@ -52,7 +48,6 @@
               <p:column headerText="Estado">
                    <h:outputText value="#{Combustivel.estado}" />
               </p:column>
- 
               <p:column headerText="Municipio">
                    <h:outputText value="#{Combustivel.municipio}" />
               </p:column>               
@@ -95,7 +90,7 @@
 	   <br/>
 	   <!--  <h:commandButton value="Histótico" actionListener="#{CombustivelResource.listCombustiveis()}"/>-->
 	   <div/>
-        <p:dataTable var="Combustivel" value="#{CombustivelResource.combustiveis}">
+        <p:dataTable var="Combustivel" value="#{CombustivelResource.combustiveisPorDistribuidora}">
               <p:column headerText="Id">
                    <h:outputText value="#{Combustiveis.id}" />
               </p:column>
@@ -148,7 +143,7 @@
 	   <br/>
 	   <!--  <h:commandButton value="Histótico" actionListener="#{CombustivelResource.listCombustiveis()}"/>-->
 	   <div/>
-        <p:dataTable var="Combustivel" value="#{CombustivelResource.combustiveis}">
+        <p:dataTable var="Combustivel" value="#{CombustivelResource.combustiveisPorDataDeColeta}">
               <p:column headerText="Id">
                    <h:outputText value="#{Combustiveis.id}" />
               </p:column>
